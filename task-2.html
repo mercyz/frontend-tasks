@@ -30,7 +30,7 @@
   <script>
   const PHONE_MODELS = [
     'Huawei Y7', 'Infinix', 'Tecno', 'iPhoneX',
-    'Xiomi', 'Oppo', 'Samsung',
+    'Xiomi', 'Oppo', 'Samsung', 'Nokia',
   ]
 
   // adds the click event to 
@@ -45,14 +45,16 @@
         arrowButton.textContent = '>';
       }
     }
+      arrowButton.addEventListener('click', toggleAction);
 
-    // call the toggleAction
+     toggleAction(listEl);     // call the toggleAction
   }
 
-  const createList = () => {
+  const createList = (phone_name) => {
     // NB: Virtual Elements don't exist in DOM after creation. 
-    const listEl =  // creates a virtual Element
+    const listEl =  document.createElement('li'); // creates a virtual Element
     // adds a class to the Virtual Elements
+    listEl.classList.add('fancy__list') 
     listEl.innerHTML = `
         <div class="text">${phone_name}</div>
         <button class="toggle-btn">&lt;</button>
@@ -60,7 +62,7 @@
         <button class="bg-orange-200">-</button>
         <button class="bg-red-200">x</button>
     `;
-
+      activeToggleButton(listEl);
     return listEl
   }
 
@@ -76,16 +78,17 @@
   // runs the code
   const startApp = () => {
     // create the phoneList
-
+    const phoneList = [];
     for (let model of PHONE_MODELS) {
-      const listEl =  // call createList here
+      const listEl =  createList(model); // call createList here
+      phoneList.push(listEl); 
     }
-
-    // call addToList here
+    
+     addToList(phoneList); // call addToList here
   }
 
   // call startApp
-  
+    startApp();
   </script>
 </body>
 
